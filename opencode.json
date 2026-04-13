@@ -1,0 +1,115 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "model": "vertex-wrapper/gemini-2.5-flash",
+  "mcp": {
+    "engram": {
+      "command": [
+        "/home/linuxbrew/.linuxbrew/Cellar/engram/1.10.10/bin/engram",
+        "mcp",
+        "--tools=agent"
+      ],
+      "enabled": true,
+      "type": "local"
+    },
+    "notebooklm": {
+      "command": [
+        "npx",
+        "-y",
+        "notebooklm-mcp@latest"
+      ],
+      "enabled": true,
+      "type": "local"
+    },
+    "stitch": {
+      "type": "remote",
+      "url": "https://stitch.googleapis.com/mcp",
+      "enabled": true,
+      "headers": {
+        "X-Goog-Api-Key": ""
+      }
+    }
+  },
+  "agent": {
+    "orquestador": {
+      "mode": "primary",
+      "description": "Orquestador principal que coordina el flujo entre subagentes",
+      "model": "vertex-wrapper/gemini-2.5-flash",
+      "options": {
+        "maxOutputTokens": 8192
+      },
+      "prompt": "{file:./prompts/orquestador.txt}",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "arquitecto": "allow",
+          "ingeniero-senior": "allow",
+          "desarrollador": "allow"
+        },
+        "edit": "ask",
+        "bash": "ask"
+      }
+    }
+  },
+  "permission": {
+    "edit": "ask",
+    "bash": "ask"
+  },
+  "provider": {
+    "vertex-wrapper": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Vertex Wrapper",
+      "options": {
+        "baseURL": "http://localhost:8080/v1",
+        "apiKey": "dummy"
+      },
+      "models": {
+        "gemini-2.5-pro": {
+          "name": "Gemini 2.5 Pro",
+          "limit": { "context": 1000000, "output": 65536 },
+          "tool_call": true
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash",
+          "limit": { "context": 1000000, "output": 65536 },
+          "tool_call": true
+        },
+        "gemini-2.5-flash-lite": {
+          "name": "Gemini 2.5 Flash Lite",
+          "limit": { "context": 1000000, "output": 8192 },
+          "tool_call": true
+        },
+        "gemini-2.0-flash": {
+          "name": "Gemini 2.0 Flash",
+          "limit": { "context": 1000000, "output": 8192 },
+          "tool_call": true
+        },
+        "meta-llama/llama-4-maverick-17b-128e-instruct": {
+          "name": "Llama 4 Maverick 17B",
+          "limit": { "context": 131072, "output": 8192 },
+          "tool_call": true
+        },
+        "llama3-8b-8192": {
+          "name": "Llama 3 8B",
+          "limit": { "context": 8192, "output": 8192 },
+          "tool_call": true
+        },
+        "openai/gpt-oss-20b": {
+          "name": "GPT OSS 20B",
+          "limit": { "context": 128000, "output": 16384 },
+          "tool_call": true
+        },
+        "gemma-3-27b-it": {
+          "name": "Gemma 3 27B",
+          "limit": { "context": 131072, "output": 8192 },
+          "tool_call": true
+        },
+        "gemma-3-12b-it": {
+          "name": "Gemma 3 12B",
+          "limit": { "context": 131072, "output": 8192 },
+          "tool_call": true
+        }
+      }
+    }
+  }
+}

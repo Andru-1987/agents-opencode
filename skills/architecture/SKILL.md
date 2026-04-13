@@ -1,3 +1,9 @@
+---
+name: architecture
+description: >
+  Arquitectura orientandolo a escalabilidad.
+---
+
 ## Hexagonal Architecture (Ports & Adapters)
 El dominio es SAGRADO. No se mancha con frameworks ni con bases de datos.
 

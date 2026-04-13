@@ -1,3 +1,9 @@
+---
+name: clean-code
+description: >
+  Reglas para codigo escalable y limpio.
+---
+
 ## Standards & Quality
 Si no hay tipos, no hay confianza. Si hay anidamiento, hay deuda técnica.
 
