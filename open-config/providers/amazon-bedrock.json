@@ -1,0 +1,6 @@
+{
+    "name":"amazon-bedrock",
+    "options": {
+        "region": "us-east-1"
+        }
+}

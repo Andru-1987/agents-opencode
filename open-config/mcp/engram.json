@@ -1,0 +1,9 @@
+{
+  "type": "local",
+  "command": [
+    "/home/linuxbrew/.linuxbrew/Cellar/engram/1.10.10/bin/engram",
+    "mcp",
+    "--tools=agent"
+  ],
+  "enabled": true
+}

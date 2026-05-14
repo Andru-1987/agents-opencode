@@ -1,10 +1,19 @@
 ---
 name: git-commit-caveman
-description: Generate Git commit messages in caveman style (ultra‑concise, 1–2 lines, all changes). For opencode agents with git access. Reads staged diff and outputs only the commit message.
+description: Generate Git commit messages in caveman style (ultra‑concise, 1–2 lines, all changes). For opencode agents with git access. Reads staged diff and outputs only the commit message. Use --commit flag to also execute the commit.
 compatibility: opencode
 tools:
   - git
+  - bash
 ---
+
+## Flag: --commit
+
+If user requests `--commit` (or says "commit", "make commit", "do it"), also execute the commit after generating the message:
+
+1. Generate the message as normal
+2. Run: `git commit -m "<message>"`
+3. Return: `✓ <hash> <message>`
 
 ## Goal
 
@@ -21,11 +30,11 @@ Generate commit messages that:
 
 Before generating the message, **you MUST**:
 
-1. Run `git diff --cached` to obtain the staged changes.  
-2. Analyze the diff to understand exactly what changed (added, modified, deleted lines, file paths).  
-3. **Do not** rely on user descriptions – use only the actual diff.
+1. Run `git diff --cached --stat && git diff --cached -U0` to obtain the staged changes.  
+2. Analyze the summary and the zero-context diff to understand exactly what changed.  
+3. **Do not** rely on user descriptions – use only the actual diff output.
 
-If nothing is staged (`git diff --cached` returns empty), reply with:  
+If nothing is staged, reply with:  
 `No staged changes. Use git add to stage files.`
 
 ---
@@ -82,3 +91,21 @@ Use this skill when:
 - The change is small or medium sized and you still want to cover all key points.
 
 You can combine it with other skills, but this one focuses only on Git commit style using the actual staged diff.
+
+---
+
+## Execution: --commit flag
+
+If the user explicitly requests to **commit** (not just generate a message), do:
+
+1. **Verify staged changes** exist (`git diff --cached --stat`)
+2. **Generate message** following all rules above
+3. **Execute commit:**
+   ```bash
+   git commit -m "<generated message>"
+   ```
+4. **Return result:**
+   - Success: `✓ <short-hash> <message>`
+   - Failure: Report the git error
+
+The commit must be executed in the same tool call — never use a separate pipeline or subshell.

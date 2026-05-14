@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@opencode-ai/plugin": "1.14.50",
+    "unique-names-generator": "^4.7.1"
+  },
+  "scripts": {
+    "config": "node ./open-config/build.js"
+  }
+}

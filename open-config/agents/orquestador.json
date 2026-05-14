@@ -1,0 +1,19 @@
+{
+  "model": "vertex-wrapper/gemini-2.5-flash",
+  "prompt": "{file:./prompts/orquestador.txt}",
+  "description": "Orquestador principal que coordina el flujo entre subagentes",
+  "mode": "primary",
+  "options": {
+    "maxOutputTokens": 8192
+  },
+  "permission": {
+    "task": {
+      "*": "deny",
+      "arquitecto": "allow",
+      "ingeniero-senior": "allow",
+      "desarrollador": "allow"
+    },
+    "edit": "ask",
+    "bash": "allow"
+  }
+}
